@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Midnight Assassin: Austin 1885 — Walking Tour</title>
+  <style>
+    :root {
+      --bg: #0b0b10; --surface: #15151d; --border: #2c2c3a;
+      --text: #e8e4d8; --dim: #9a94a6; --accent: #c9a227; --blood: #8e1c1c;
+    }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Georgia, "Times New Roman", serif; line-height: 1.6;
+    }
+    main { max-width: 640px; margin: 0 auto; padding: 48px 20px; }
+    .kicker { color: var(--accent); letter-spacing: 4px; font-size: 12px; }
+    h1 { font-size: 40px; line-height: 1.15; margin: 8px 0 16px; }
+    p { color: var(--dim); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin: 24px 0;
+    }
+    .card h2 { color: var(--accent); font-size: 18px; margin-top: 0; }
+    ol { color: var(--text); padding-left: 22px; }
+    ol li { margin: 6px 0; }
+    ol li span { color: var(--dim); font-size: 14px; }
+    a { color: var(--accent); }
+    footer { color: var(--dim); font-size: 13px; margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="kicker">AUSTIN · TEXAS · 1884–1885</div>
+    <h1>The Midnight Assassin</h1>
+    <p>
+      A guided night walk to the sites of Austin's unsolved "Servant Girl"
+      murders — America's first hunted serial killer, three years before the
+      Ripper. This site hosts the media and live content for the mobile tour
+      app.
+    </p>
+
+    <div class="card">
+      <h2>The route</h2>
+      <ol id="stops"><li>Loading…</li></ol>
+    </div>
+
+    <div class="card">
+      <h2>Remembrance</h2>
+      <p>
+        Mollie Smith · Eliza Shelley · Irene Cross · Mary Ramey ·
+        Gracie Vance · Orange Washington · Susan Hancock · Eula Phillips
+      </p>
+      <p>
+        Most of the victims were Black women whose lives went largely
+        unrecorded. We walk to remember them, not the man who killed them.
+      </p>
+    </div>
+
+    <footer>
+      Sources: Skip Hollandsworth, <em>The Midnight Assassin</em> (2016);
+      Austin Daily Statesman archives; Austin History Center.
+      Site positions are approximate — corrections welcome via the app.
+    </footer>
+  </main>
+  <script>
+    fetch("./content/tour.json")
+      .then((r) => r.json())
+      .then((tour) => {
+        document.getElementById("stops").innerHTML = tour.stops
+          .map(
+            (s) =>
+              `<li>${s.title}${s.victim ? ` — <span>${s.victim}</span>` : ""}${
+                s.date ? ` <span>(${s.date})</span>` : ""
+              }</li>`,
+          )
+          .join("");
+      })
+      .catch(() => {
+        document.getElementById("stops").innerHTML = "<li>See the app.</li>";
+      });
+  </script>
+</body>
+</html>

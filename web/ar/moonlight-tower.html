@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moonlight Tower — AR</title>
+  <!--
+    Google's open-source <model-viewer> web component (Apache-2.0).
+    On Android with Google Play Services for AR it offers true
+    place-in-your-world AR via Scene Viewer; on iOS it uses Quick Look
+    (with a .usdz); elsewhere it falls back to an interactive 3D view.
+
+    Drop your model into this folder as:
+      moonlight-tower.glb   (required — export from Blender, free)
+      moonlight-tower.usdz  (optional — enables iOS AR later)
+  -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer@4.0.0/dist/model-viewer.min.js"></script>
+  <style>
+    html, body { margin: 0; height: 100%; background: #0b0b10; color: #e8e4d8;
+      font-family: Georgia, serif; }
+    model-viewer { width: 100%; height: 100%; background: #0b0b10; }
+    .caption {
+      position: fixed; bottom: 16px; left: 16px; right: 16px;
+      background: rgba(11,11,16,0.8); border-radius: 12px; padding: 14px;
+      font-size: 14px; line-height: 1.5; color: #9a94a6;
+    }
+    .caption b { color: #c9a227; }
+    #missing {
+      display: none; position: fixed; inset: 0; padding: 32px;
+      background: #0b0b10; line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <model-viewer
+    id="mv"
+    src="./moonlight-tower.glb"
+    ios-src="./moonlight-tower.usdz"
+    alt="1895 Austin moonlight tower"
+    ar
+    ar-modes="scene-viewer webxr quick-look"
+    ar-scale="fixed"
+    camera-controls
+    auto-rotate
+    exposure="0.6"
+    shadow-intensity="1"
+  >
+    <button slot="ar-button" style="position:absolute; bottom:90px; left:50%; transform:translateX(-50%); background:#8e1c1c; color:#e8e4d8; border:0; border-radius:10px; padding:12px 20px; font-size:16px; font-family:Georgia,serif;">
+      Raise the tower here
+    </button>
+  </model-viewer>
+
+  <div class="caption">
+    <b>Moonlight Tower, 1895.</b> 165 feet of iron and carbon-arc light —
+    Austin's answer to a year of darkness. Tap the button to stand it in
+    front of you.
+  </div>
+
+  <div id="missing">
+    <h2>Model not installed yet</h2>
+    <p>
+      Add <code>moonlight-tower.glb</code> to <code>web/ar/</code> in the
+      repository and push. Free ways to get one: model it in Blender, or
+      find a CC-licensed lattice/tower model on Sketchfab and export to glTF
+      (.glb). Keep it under ~10&nbsp;MB for quick loading on the street.
+    </p>
+  </div>
+
+  <script>
+    document.getElementById("mv").addEventListener("error", () => {
+      document.getElementById("missing").style.display = "block";
+    });
+  </script>
+</body>
+</html>

@@ -1,17 +1,23 @@
 {
   "expo": {
-    "name": "scaffold",
-    "slug": "scaffold",
-    "version": "1.0.0",
+    "name": "Midnight Assassin Tour",
+    "slug": "mobilemurdertour",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0b0b10",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.austingraph.midnighttour",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This tour uses your location to guide you between historic sites and unlock stories when you arrive."
+      }
     },
     "android": {
+      "package": "com.austingraph.midnighttour",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#0b0b10",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
@@ -20,6 +26,22 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-video",
+      "@maplibre/maplibre-react-native",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "This tour uses your location to guide you between historic sites and unlock stories when you arrive."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "The camera is used for the on-site 'apparition' viewer, which overlays historical imagery on your surroundings."
+        }
+      ]
+    ]
   }
 }
